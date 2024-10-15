@@ -1,0 +1,1510 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <link href="{% static 'css/home.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/filterdropdown.css' %}" rel="stylesheet" />
+
+    <title>Bill Listing</title>
+  </head>
+  <body>
+    <div class="home_page">
+      <!-- Header -->
+      <div class="cheader">
+        <img src="{% static 'img/logo.svg' %}" alt="Logo" />
+        <h2>35th Legislature of United States of Virgin Island</h2>
+      </div>
+      <div class="container">
+        <!-- Buttons and Filters -->
+        <div class="filter_head">
+          <div class="left_sec">
+            <ul class="nav nav-tabs" id="mainTab" role="tablist">
+              <button
+                class="btn btn-primary nav-link active"
+                id="billtracking-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#billtracking-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="billtracking-tab-pane"
+                aria-selected="true"
+              >
+                Bill Tracking
+              </button>
+              <button
+                class="btn btn-secondary nav-link"
+                id="membersearch-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#membersearch-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="membersearch-tab-pane"
+                aria-selected="false"
+              >
+                Member Search
+              </button>
+            </ul>
+          </div>
+          <div class="right_sec">
+            <div class="ltag" id="searchTag">Legislature</div>
+
+            <div class="input_sec">
+              <div class="cinput">
+                <div class="gropuSec" id="gropuSec">
+                  <input
+                    class="mainInput"
+                    type="text"
+                    class="form-control"
+                    placeholder="Examples: 35"
+                  />
+                  <div id="contentDiv" class="filter-container">
+                    <div class="filter_innersec">
+                      <!-- Subject Input -->
+                      <div class="sub_input">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Subject"
+                        />
+                      </div>
+
+                      <!-- Sponsor Section -->
+                      <div class="spon_sec">
+                        <h2>Sponsor</h2>
+                        <div class="form-section">
+                          <div class="left_sec">
+                            <div class="check_cnt">
+                              <div class="form-check form-check-inline">
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="primarySponsor"
+                                  value=""
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="primarySponsor"
+                                  >Primary Sponsor</label
+                                >
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="sponsor"
+                                />
+                                <label class="form-check-label" for="sponsor"
+                                  >Sponsor</label
+                                >
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="coSponsor"
+                                />
+                                <label class="form-check-label" for="coSponsor"
+                                  >Co-Sponsor</label
+                                >
+                              </div>
+                            </div>
+
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder=""
+                            />
+                          </div>
+                          <div class="right_sec">
+                            <label>Committee</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Date Section -->
+                      <div class="date_leg">
+                        <div class="date-section">
+                          <h5>Date</h5>
+                          <div class="check_sec">
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="approved"
+                              />
+                              <label class="form-check-label" for="approved"
+                                >Approved</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="vetoed"
+                              />
+                              <label class="form-check-label" for="vetoed"
+                                >Vetoed</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="overridden"
+                              />
+                              <label class="form-check-label" for="overridden"
+                                >Overridden</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="assigned"
+                              />
+                              <label class="form-check-label" for="assigned"
+                                >Assigned</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="introduced"
+                              />
+                              <label class="form-check-label" for="introduced"
+                                >Introduced</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="toSenator"
+                              />
+                              <label class="form-check-label" for="toSenator"
+                                >To Senator</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="toGovernor"
+                              />
+                              <label class="form-check-label" for="toGovernor"
+                                >To Governor</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="toLtGovernor"
+                              />
+                              <label class="form-check-label" for="toLtGovernor"
+                                >To Lt. Governor</label
+                              >
+                            </div>
+                          </div>
+                          <div class="date_cnt">
+                            <div class="col-6">
+                              <input
+                                type="text"
+                                id="dateFrom"
+                                class="form-control datepicker"
+                                placeholder="Date from"
+                              />
+                            </div>
+                            <div class="col-6 form-control2">
+                              <input
+                                type="text"
+                                id="dateTo"
+                                class="form-control datepicker"
+                                placeholder="Date to"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Legislature Numbers Section -->
+                        <div class="leg-section">
+                          <h5>Legislature Numbers</h5>
+                          <div class="check_sec">
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="billNumber"
+                              />
+                              <label class="form-check-label" for="billNumber"
+                                >Bill Number</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="actNumber"
+                              />
+                              <label class="form-check-label" for="actNumber"
+                                >Act Number</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="brNumber"
+                              />
+                              <label class="form-check-label" for="brNumber"
+                                >BR Number</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="amendmentNumber"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="amendmentNumber"
+                                >Amendment No.</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="resolutionNumber"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="resolutionNumber"
+                                >Resolution No.</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="governorsNumber"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="governorsNumber"
+                                >Governors No.</label
+                              >
+                            </div>
+                          </div>
+
+                          <div class="numinput">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Number"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Actions -->
+                      <div class="fotter_sec">
+                        <button class="btn btn-outline-secondary me-2">
+                          Reset Form
+                        </button>
+                        <button class="btn btn-primary">
+                          <img src="{% static 'img/search-line.svg' %}" /> Search
+                        </button>
+                      </div>
+                    </div>
+                    <div class="moreopt" id="hideButton">
+                      Hide Options
+                      <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="moreopt" id="moreButton">
+                  More Options
+                  <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </div>
+              </div>
+
+              <button class="btn btn-primary serchbtn">
+                <img src="{% static 'img/search-line.svg' %}" />Search
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Main tab contents -->
+        <div class="tab-content" id="mainTabContent">
+          <!-- Bill-tracking-tab-content -->
+          <div
+            class="billSecTab tab-pane fade show active"
+            id="billtracking-tab-pane"
+            role="tabpanel"
+            aria-labelledby="billtracking-tab"
+            tabindex="0"
+          >
+            <!-- Bill-tracking Filter and Sort Section -->
+            <div class="filter_sub_head">
+              <div class="left_sec">
+                <button
+                  class="btn btn-outline-primary sfilter_btn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  Show Filter
+                </button>
+                <div class="pagination">
+                  <span>1-4 of 530,29</span>
+                  <button class="btn btn-outline-secondary ls">
+                    <img src="{% static 'img/arrow-left-s-line.svg' %}" />
+                  </button>
+                  <input
+                    type="text"
+                    value="1"
+                    class="form-control d-inline-block"
+                  />
+
+                  <span>of 1325 pages</span>
+                  <button class="btn btn-outline-secondary mx-2">
+                    <img src="{% static 'img/arrow-right-s-line.svg' %}" />
+                  </button>
+                </div>
+              </div>
+              <div class="right_sec">
+                <div class="view_sec">
+                  <label for="view" class="form-label">View</label>
+                  <ul class="nav nav-tabs" id="billSec-subTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link active"
+                        id="bill-grid-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#billgrid-tab-pane"
+                        type="button"
+                        role="tab"
+                        aria-controls="billgrid-tab-pane"
+                        aria-selected="true"
+                      >
+                        <img src="{% static 'img/grid.svg' %}" class="inactive" alt="grid" />
+                        <img
+                          src="{% static 'img/grid-active.svg' %}"
+                          class="active"
+                          alt="grid-active"
+                        />
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link"
+                        id="bill-table-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#billtable-tab-pane"
+                        type="button"
+                        role="tab"
+                        aria-controls="billtable-tab-pane"
+                        aria-selected="false"
+                      >
+                        <img src="{% static 'img/table.svg' %}" class="inactive" alt="grid" />
+                        <img
+                          src="{% static 'img/table-active.svg' %}"
+                          class="active"
+                          alt="grid-active"
+                        />
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+                <div class="sort_sec">
+                  <label for="sort" class="form-label">Sort by</label>
+                  <select id="sort" class="form-select">
+                    <option>Number Descending</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bill-tracking -Cards -->
+            <div class="bill-section">
+              <div class="tab-content" id="billSec-subTabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="billgrid-tab-pane"
+                  role="tabpanel"
+                  aria-labelledby="billgrid-tab"
+                  tabindex="2"
+                >
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="bill-card">
+                        <div class="bhead">
+                          <h5>Bill No - 35-0003</h5>
+                          <span class="bill-badge">BILL</span>
+                        </div>
+                        <p>
+                          An Act appropriating funds for the adoption of various
+                          portions of the Virgin Islands Agricultural Plan,
+                          submitted by the Agricultural Plan Task Force on
+                          December 29, 2021, as the official Agricultural Plan
+                          for the Territory
+                        </p>
+                        <div class="introced">
+                          Introduced on: <span>02-27-2023</span>
+                        </div>
+                        <div class="sponce_sec">
+                          Primary Sponsor: <span>Nefranci,</span> Sponsor:
+                          <span>Nefranci,</span> <a href="#">(7)</a>,
+                          Co-sponsor: <a href="#">(0)</a><br> Act No.:
+                          <a href="#">8700</a>
+                          Amendment No.:<a href="#">4567</a>
+                          Resolution No.:<a href="#">1234</a><br>
+                          Governors No.:<a href="#">3986</a>
+                        </div>
+                        <div class="status_sec">
+                          <strong>Status:</strong>
+                          <div class="bill-status active">
+                            Assigned <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Introduced <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Senator <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Committee <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Floor <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Approved <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Lt. Governor <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Governor <span>02/04/2024</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Copy the above block to add more cards -->
+                    <div class="col-md-6 mb-4">
+                      <div class="bill-card">
+                        <div class="bhead">
+                          <h5>Bill No - 35-0003</h5>
+                          <span class="bill-badge">BILL</span>
+                        </div>
+                        <p>
+                          An Act appropriating funds for the adoption of various
+                          portions of the Virgin Islands Agricultural Plan,
+                          submitted by the Agricultural Plan Task Force on
+                          December 29, 2021, as the official Agricultural Plan
+                          for the Territory
+                        </p>
+                        <div class="introced">
+                          Introduced on: <span>02-27-2023</span>
+                        </div>
+                        <div class="sponce_sec">
+                          Primary Sponsor: <span>Nefranci,</span> Sponsor:
+                          <span>Nefranci,</span> <a href="#">(7)</a>,
+                          Co-sponsor: <a href="#">(0)</a><br> Act No.:
+                          <a href="#">8700</a>
+                          Amendment No.:<a href="#">4567</a>
+                          Resolution No.:<a href="#">1234</a><br>
+                          Governors No.:<a href="#">3986</a>
+                        </div>
+                        <div class="status_sec">
+                          <strong>Status:</strong>
+                          <div class="bill-status active">
+                            Assigned <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Introduced <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Senator <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Committee <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Floor <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Approved <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Lt. Governor <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Governor <span>02/04/2024</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="bill-card">
+                        <div class="bhead">
+                          <h5>Bill No - 35-0003</h5>
+                          <span class="bill-badge">BILL</span>
+                        </div>
+                        <p>
+                          An Act appropriating funds for the adoption of various
+                          portions of the Virgin Islands Agricultural Plan,
+                          submitted by the Agricultural Plan Task Force on
+                          December 29, 2021, as the official Agricultural Plan
+                          for the Territory
+                        </p>
+                        <div class="introced">
+                          Introduced on: <span>02-27-2023</span>
+                        </div>
+                        <div class="sponce_sec">
+                          Primary Sponsor: <span>Nefranci,</span> Sponsor:
+                          <span>Nefranci,</span> <a href="#">(7)</a>,
+                          Co-sponsor: <a href="#">(0)</a><br> Act No.:
+                          <a href="#">8700</a>
+                          Amendment No.:<a href="#">4567</a>
+                          Resolution No.:<a href="#">1234</a><br>
+                          Governors No.:<a href="#">3986</a>
+                        </div>
+                        <div class="status_sec">
+                          <strong>Status:</strong>
+                          <div class="bill-status active">
+                            Assigned <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Introduced <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Senator <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Committee <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Floor <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Approved <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Lt. Governor <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Governor <span>02/04/2024</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Copy the above block to add more cards -->
+                    <div class="col-md-6 mb-4">
+                      <div class="bill-card">
+                        <div class="bhead">
+                          <h5>Bill No - 35-0003</h5>
+                          <span class="bill-badge">BILL</span>
+                        </div>
+                        <p>
+                          An Act appropriating funds for the adoption of various
+                          portions of the Virgin Islands Agricultural Plan,
+                          submitted by the Agricultural Plan Task Force on
+                          December 29, 2021, as the official Agricultural Plan
+                          for the Territory
+                        </p>
+                        <div class="introced">
+                          Introduced on: <span>02-27-2023</span>
+                        </div>
+                        <div class="sponce_sec">
+                          Primary Sponsor: <span>Nefranci,</span> Sponsor:
+                          <span>Nefranci,</span> <a href="#">(7)</a>,
+                          Co-sponsor: <a href="#">(0)</a><br> Act No.:
+                          <a href="#">8700</a>
+                          Amendment No.:<a href="#">4567</a>
+                          Resolution No.:<a href="#">1234</a><br>
+                          Governors No.:<a href="#">3986</a>
+                        </div>
+                        <div class="status_sec">
+                          <strong>Status:</strong>
+                          <div class="bill-status active">
+                            Assigned <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Introduced <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Senator <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Committee <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Floor <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Approved <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Lt. Governor <span>02/04/2024</span>
+                          </div>
+                          <div class="bill-status">
+                            Governor <span>02/04/2024</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="billtable-tab-pane"
+                  role="tabpanel"
+                  aria-labelledby="billtable-tab"
+                  tabindex="3"
+                >
+                  <div class="bill-table-wrapper">
+                    <table class="bill-table table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="col-md-1 ps-3">Leg. No.</th>
+                          <th scope="col" class="col-md-2 ps-3">Bill No</th>
+                          <th scope="col" class="col-md-3">Subject</th>
+                          <th scope="col" class="col-md-2">Introduced On</th>
+                          <th scope="col" class="col-md-2">Status</th>
+                          <th scope="col" class="col-md-2">Last Action Date</th>
+                        </tr>
+                      </thead>
+                    </table>
+                    <div class="table-scroll">
+                      <table class="bill-table table table-hover">
+                        <tbody>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status approved">
+                              Approved
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status approved">
+                              Date Received
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status assigned">
+                              Date Assigned
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status overriden">
+                              Date Overridden
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status overriden">
+                              Date Overridden
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status overriden">
+                              Date Overridden
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status overriden">
+                              Date Overridden
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status overriden">
+                              Date Overridden
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2">02/10/2024</td>
+                            <td class="col-md-2 bill-status overriden">
+                              Date Overridden
+                            </td>
+                            <td class="col-md-2">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status overriden">
+                              Date Overridden
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-1 ps-3">35</td>
+                            <td class="col-md-2 bill-no ps-3">35-0003</td>
+                            <td class="col-md-3">
+                              An Act apprpirating $2,900,00 to the Department of
+                              Public Works for the Construction..
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                            <td class="col-md-2 ps-1 bill-status overriden">
+                              Date Overridden
+                            </td>
+                            <td class="col-md-2 ps-1">02/10/2024</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Member-Search-tab-content -->
+          <div
+            class="memberSecTab tab-pane fade"
+            id="membersearch-tab-pane"
+            role="tabpanel"
+            aria-labelledby="membersearch-tab"
+            tabindex="0"
+          >
+            <!-- Member-Search Filter and Sort Section -->
+            <div class="filter_sub_head">
+              <div class="left_sec">
+                <button
+                class="btn btn-outline-primary sfilter_btn"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+              >
+                Show Filter
+              </button>
+                <div class="pagination">
+                  <span>1-4 of 530,29</span>
+                  <button class="btn btn-outline-secondary ls">
+                    <img src="{% static 'img/arrow-left-s-line.svg' %}" />
+                  </button>
+                  <input
+                    type="text"
+                    value="1"
+                    class="form-control d-inline-block"
+                  />
+
+                  <span>of 1325 pages</span>
+                  <button class="btn btn-outline-secondary mx-2">
+                    <img src="{% static 'img/arrow-right-s-line.svg' %}" />
+                  </button>
+                </div>
+              </div>
+              <div class="right_sec">
+                <div class="view_sec">
+                  <label for="view" class="form-label">View</label>
+                  <ul
+                    class="nav nav-tabs"
+                    id="memberSearc-subtab"
+                    role="tablist"
+                  >
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link active"
+                        id="member-grid-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#membergrid-tab-pane"
+                        type="button"
+                        role="tab"
+                        aria-controls="membergrid-tab-pane"
+                        aria-selected="true"
+                      >
+                        <img src="{% static 'img/grid.svg' %}" class="inactive" alt="grid" />
+                        <img
+                          src="{% static 'img/grid-active.svg' %}"
+                          class="active"
+                          alt="grid-active"
+                        />
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link"
+                        id="member-table-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#membertable-tab-pane"
+                        type="button"
+                        role="tab"
+                        aria-controls="membertable-tab-pane"
+                        aria-selected="false"
+                      >
+                        <img src="{% static 'img/table.svg' %}" class="inactive" alt="grid" />
+                        <img
+                          src="{% static 'img/table-active.svg' %}"
+                          class="active"
+                          alt="grid-active"
+                        />
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+                <div class="sort_sec">
+                  <label for="sort" class="form-label">Sort by</label>
+                  <select id="sort" class="form-select">
+                    <option>Number Descending</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Member-Search -Cards -->
+            <div class="member-section">
+              <div class="leftsSec">
+                <!-- Member-Search-Member-Details -->
+                <div class="member-details">                                
+                  <img src="{% static 'img/image 2.jpg' %}" alt="" />
+                  <div class="courtsy-cnt">Representative <b>Alma S Adams</b></div>
+                  <ul>
+                    <li>
+                      <span class="label">Party</span>
+                      <span class="label-cnt">Democratic</span>
+                    </li>
+                    <li>
+                      <span class="label">Island</span>
+                      <span class="label-cnt">
+                        2436 Rayburn House Office Building (202) 225-1510
+                        <a href="#">Contact</a></span
+                      >
+                    </li>
+                    <li>
+                      <span class="label">Email</span>
+                      <span class="label-cnt">Alma.s@gmail.com</span>
+                    </li>
+                    <li>
+                      <span class="label">Telephone</span>
+                      <span class="label-cnt"> https://adams.house.gov</span>
+                    </li>
+                    <li>
+                      <span class="label">Website</span>
+                      <span class="label-cnt"> https://adams.house.gov</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="rightSec">
+                <!-- Member-Search-Tab-Content -->
+                <div class="tab-content" id="memberSearc-subtabContent">
+                  <div
+                    class="tab-pane fade show active"
+                    id="membergrid-tab-pane"
+                    role="tabpanel"
+                    aria-labelledby="membergrid-tab"
+                    tabindex="5"
+                  >
+                    <div class="bill-card mb-4">
+                      <div class="bhead">
+                        <h5>Bill No - 35-0003</h5>
+                        <span class="bill-badge">BILL</span>
+                      </div>
+                      <p>
+                        An Act appropriating funds for the adoption of various
+                        portions of the Virgin Islands Agricultural Plan,
+                        submitted by the Agricultural Plan Task Force on
+                        December 29, 2021, as the official Agricultural Plan for
+                        the Territory
+                      </p>
+                      <div class="introced">
+                        Introduced on: <span>02-27-2023</span>
+                      </div>
+                      <div class="sponce_sec">
+                        Primary Sponsor: <span>Nefranci,</span> Sponsor:
+                        <span>Nefranci,</span> <a href="#">(7)</a>,
+                        Co-sponsor: <a href="#">(0)</a><br> Act No.:
+                        <a href="#">8700</a>
+                        Amendment No.:<a href="#">4567</a>
+                        Resolution No.:<a href="#">1234</a>
+                        Governors No.:<a href="#">3986</a>
+                      </div>
+                      <div class="status_sec">
+                        <strong>Status:</strong>
+                        <div class="bill-status active">
+                          Assigned <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Introduced <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Senator <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Committee <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Floor <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Approved <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Lt. Governor <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Governor <span>02/04/2024</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="bill-card mb-4">
+                      <div class="bhead">
+                        <h5>Bill No - 35-0003</h5>
+                        <span class="bill-badge">BILL</span>
+                      </div>
+                      <p>
+                        An Act appropriating funds for the adoption of various
+                        portions of the Virgin Islands Agricultural Plan,
+                        submitted by the Agricultural Plan Task Force on
+                        December 29, 2021, as the official Agricultural Plan for
+                        the Territory
+                      </p>
+                      <div class="introced">
+                        Introduced on: <span>02-27-2023</span>
+                      </div>
+                      <div class="sponce_sec">
+                        Primary Sponsor: <span>Nefranci,</span> Sponsor:
+                        <span>Nefranci,</span> <a href="#">(7)</a>,
+                        Co-sponsor: <a href="#">(0)</a><br> Act No.:
+                        <a href="#">8700</a>
+                        Amendment No.:<a href="#">4567</a>
+                        Resolution No.:<a href="#">1234</a>
+                        Governors No.:<a href="#">3986</a>
+                      </div>
+                      <div class="status_sec">
+                        <strong>Status:</strong>
+                        <div class="bill-status active">
+                          Assigned <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Introduced <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Senator <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Committee <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Floor <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Approved <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Lt. Governor <span>02/04/2024</span>
+                        </div>
+                        <div class="bill-status">
+                          Governor <span>02/04/2024</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="membertable-tab-pane"
+                    role="tabpanel"
+                    aria-labelledby="membertable-tab"
+                    tabindex="6"
+                  >
+                    <div class="bill-table-wrapper">
+                      <table class="bill-table table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="col-md-1 ps-3">Leg. No.</th>
+                            <th scope="col" class="col-md-2 ps-3">Bill No</th>
+                            <th scope="col" class="col-md-3">Subject</th>
+                            <th scope="col" class="col-md-2">Introduced On</th>
+                            <th scope="col" class="col-md-2">Status</th>
+                            <th scope="col" class="col-md-2">
+                              Last Action Date
+                            </th>
+                          </tr>
+                        </thead>
+                      </table>
+                      <div class="table-scroll">
+                        <table class="bill-table table table-hover">
+                          <tbody>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status approved">
+                                Approved
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status approved">
+                                Date Received
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status assigned">
+                                Date Assigned
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status overriden">
+                                Date Overridden
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status overriden">
+                                Date Overridden
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status overriden">
+                                Date Overridden
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status overriden">
+                                Date Overridden
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status overriden">
+                                Date Overridden
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2">02/10/2024</td>
+                              <td class="col-md-2 bill-status overriden">
+                                Date Overridden
+                              </td>
+                              <td class="col-md-2">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status overriden">
+                                Date Overridden
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-1 ps-3">35</td>
+                              <td class="col-md-2 bill-no ps-3">35-0003</td>
+                              <td class="col-md-3">
+                                An Act apprpirating $2,900,00 to the Department
+                                of Public Works for the Construction..
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                              <td class="col-md-2 ps-1 bill-status overriden">
+                                Date Overridden
+                              </td>
+                              <td class="col-md-2 ps-1">02/10/2024</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered search_filter_modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title" id="staticBackdropLabel">
+                Search Filter
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="date-section">
+                <h5>Dates</h5>
+                <div class="check_sec">
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="approved"
+                    />
+                    <label class="form-check-label" for="approved"
+                      >Approved</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="vetoed"
+                    />
+                    <label class="form-check-label" for="vetoed">Vetoed</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="overridden"
+                    />
+                    <label class="form-check-label" for="overridden"
+                      >Overridden</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="assigned"
+                    />
+                    <label class="form-check-label" for="assigned"
+                      >Assigned</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="introduced"
+                    />
+                    <label class="form-check-label" for="introduced"
+                      >Introduced</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="toSenator"
+                    />
+                    <label class="form-check-label" for="toSenator"
+                      >To Senator</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="toGovernor"
+                    />
+                    <label class="form-check-label" for="toGovernor"
+                      >To Governor</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="toLtGovernor"
+                    />
+                    <label class="form-check-label" for="toLtGovernor"
+                      >To Lt. Governor</label
+                    >
+                  </div>
+                </div>
+                <div class="date_cnt">
+                  <div class="col-6">
+                    <input
+                      type="text"
+                      id="dateFrom"
+                      class="form-control datepicker"
+                      placeholder="Date from"
+                    />
+                  </div>
+                  <div class="col-6 form-control2">
+                    <input
+                      type="text"
+                      id="dateTo"
+                      class="form-control datepicker"
+                      placeholder="Date to"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="spon_sec">
+                <h2>Sponsor</h2>
+                <div class="form-section">
+                  <div class="left_sec">
+                    <div class="check_cnt">
+                      <div class="form-check form-check-inline">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="primarySponsor"
+                          value=""
+                        />
+                        <label class="form-check-label" for="primarySponsor"
+                          >Primary Sponsor</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="sponsor"
+                        />
+                        <label class="form-check-label" for="sponsor"
+                          >Sponsor</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="coSponsor"
+                        />
+                        <label class="form-check-label" for="coSponsor"
+                          >Co-Sponsor</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="right_sec">
+                    <div class="s_select">
+                      <label for="sort" class="form-label">Sponsors</label>
+                      <select id="sort" class="form-select">
+                        <option>Search here...</option>
+                      </select>
+                    </div>
+                    <div class="s_select">
+                      <label for="sort" class="form-label">Committee</label>
+                      <select id="sort" class="form-select">
+                        <option>Search here...</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".datepicker").datepicker({
+          format: "mm/dd/yyyy", // Date format, you can change to your preferred format
+          autoclose: true, // Automatically close the picker after selecting a date
+          todayHighlight: true, // Highlight today’s date
+        });
+        $("#moreButton").click(function () {
+          $("#contentDiv").slideToggle();
+          $("#gropuSec").toggleClass("highlight");
+        });
+        $("#hideButton").click(function () {
+          $("#contentDiv").slideToggle();
+          $("#gropuSec").toggleClass("highlight");
+        });
+
+        // modifying content based on Main tab change
+        const myTab = document.getElementById("mainTab");
+        const moreFilterBtn = document.getElementById("moreButton");
+
+        myTab.addEventListener("shown.bs.tab", function (event) {
+          const newActiveTabId = event.target.id;
+          const searchTag = document.getElementById("searchTag");
+          if (newActiveTabId === "billtracking-tab") {
+            searchTag.textContent = "Legislature";
+            moreFilterBtn.style.display = "block";
+          } else if (newActiveTabId === "membersearch-tab") {
+            searchTag.textContent = "Member Search";
+            moreFilterBtn.style.display = "none";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
