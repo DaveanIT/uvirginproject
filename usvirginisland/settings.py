@@ -74,10 +74,21 @@ WSGI_APPLICATION = 'usvirginisland.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mssql',
+        'NAME': 'BILLTRACK',
+        'USER': 'sa',
+        'PASSWORD': 'S@pdb#39',
+        'HOST': '192.168.0.5',
+        'PORT': '',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'MARS_Connection': True,
+        },
     }
 }
 
