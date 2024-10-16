@@ -25,6 +25,7 @@
     <title>Bill Listing</title>
   </head>
   <body>
+    
     <div class="home_page">
       <!-- Header -->
       <div class="cheader">
@@ -460,230 +461,56 @@
                   aria-labelledby="billgrid-tab"
                   tabindex="2"
                 >
-                  <div class="row">
+                <div class="row">
+                  {% for bill in bills %}
+                  
+                    {% if forloop.counter0|divisibleby:2 and not forloop.first %}
+                      </div><div class="row">
+                    {% endif %}
+                    
                     <div class="col-md-6 mb-4">
                       <div class="bill-card">
                         <div class="bhead">
-                          <h5>Bill No - 35-0003</h5>
-                          <span class="bill-badge">BILL</span>
+                          <h5>Bill No - {{ bill.BRNumber }}</h5>
+                          <span class="bill-badge">{{ bill.RequestType }}</span>
                         </div>
                         <p>
-                          An Act appropriating funds for the adoption of various
-                          portions of the Virgin Islands Agricultural Plan,
-                          submitted by the Agricultural Plan Task Force on
-                          December 29, 2021, as the official Agricultural Plan
-                          for the Territory
+                          {{ bill.Subjct }}
                         </p>
                         <div class="introced">
-                          Introduced on: <span>02-27-2023</span>
+                          Introduced on: <span>{{ bill.IntroDt }}</span>
                         </div>
+                        
                         <div class="sponce_sec">
-                          Primary Sponsor: <span>Nefranci,</span> Sponsor:
-                          <span>Nefranci,</span> <a href="#">(7)</a>,
-                          Co-sponsor: <a href="#">(0)</a><br> Act No.:
-                          <a href="#">8700</a>
-                          Amendment No.:<a href="#">4567</a>
-                          Resolution No.:<a href="#">1234</a><br>
-                          Governors No.:<a href="#">3986</a>
+                          Primary Sponsor: <span>{{ bill.PrimarySpon }},</span> Sponsor:
+                          <span>{{bill.Sponsor}},</span> <a href="#">(7)</a>,
+                          Co-sponsor: <span>{{bill.CoSponsor}},</span><a href="#">(0)</a><br> Act No.:
+                          <a href="#">{{bill.ActNo}}</a>
+                          Amendment No.:<a href="#">{{ bill.AmndNo }}</a>
+                          Resolution No.:<a href="#">{{ bill.ResoNo }}</a><br>
+                          Governors No.:<a href="#">{{ bill.GovNo }}</a>
                         </div>
+                        
                         <div class="status_sec">
                           <strong>Status:</strong>
-                          <div class="bill-status active">
-                            Assigned <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Introduced <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Senator <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Committee <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Floor <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Approved <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Lt. Governor <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Governor <span>02/04/2024</span>
-                          </div>
+                
+                          <!-- Loop through other_bills and match on DocEntry -->
+                          {% for other_bill in status %}
+                            {% if other_bill.DocEntry == bill.DocEntry %}
+                              <div class="bill-status {% if other_bill.LastAct == 'Y' %}active{% endif %}">
+                                {{ other_bill.Stat }}<span>{{ other_bill.StatDt|default:"" }}</span>
+                              </div>
+                            {% endif %}
+                          {% endfor %}
                         </div>
+                        
                       </div>
                     </div>
-
-                    <!-- Copy the above block to add more cards -->
-                    <div class="col-md-6 mb-4">
-                      <div class="bill-card">
-                        <div class="bhead">
-                          <h5>Bill No - 35-0003</h5>
-                          <span class="bill-badge">BILL</span>
-                        </div>
-                        <p>
-                          An Act appropriating funds for the adoption of various
-                          portions of the Virgin Islands Agricultural Plan,
-                          submitted by the Agricultural Plan Task Force on
-                          December 29, 2021, as the official Agricultural Plan
-                          for the Territory
-                        </p>
-                        <div class="introced">
-                          Introduced on: <span>02-27-2023</span>
-                        </div>
-                        <div class="sponce_sec">
-                          Primary Sponsor: <span>Nefranci,</span> Sponsor:
-                          <span>Nefranci,</span> <a href="#">(7)</a>,
-                          Co-sponsor: <a href="#">(0)</a><br> Act No.:
-                          <a href="#">8700</a>
-                          Amendment No.:<a href="#">4567</a>
-                          Resolution No.:<a href="#">1234</a><br>
-                          Governors No.:<a href="#">3986</a>
-                        </div>
-                        <div class="status_sec">
-                          <strong>Status:</strong>
-                          <div class="bill-status active">
-                            Assigned <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Introduced <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Senator <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Committee <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Floor <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Approved <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Lt. Governor <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Governor <span>02/04/2024</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 mb-4">
-                      <div class="bill-card">
-                        <div class="bhead">
-                          <h5>Bill No - 35-0003</h5>
-                          <span class="bill-badge">BILL</span>
-                        </div>
-                        <p>
-                          An Act appropriating funds for the adoption of various
-                          portions of the Virgin Islands Agricultural Plan,
-                          submitted by the Agricultural Plan Task Force on
-                          December 29, 2021, as the official Agricultural Plan
-                          for the Territory
-                        </p>
-                        <div class="introced">
-                          Introduced on: <span>02-27-2023</span>
-                        </div>
-                        <div class="sponce_sec">
-                          Primary Sponsor: <span>Nefranci,</span> Sponsor:
-                          <span>Nefranci,</span> <a href="#">(7)</a>,
-                          Co-sponsor: <a href="#">(0)</a><br> Act No.:
-                          <a href="#">8700</a>
-                          Amendment No.:<a href="#">4567</a>
-                          Resolution No.:<a href="#">1234</a><br>
-                          Governors No.:<a href="#">3986</a>
-                        </div>
-                        <div class="status_sec">
-                          <strong>Status:</strong>
-                          <div class="bill-status active">
-                            Assigned <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Introduced <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Senator <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Committee <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Floor <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Approved <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Lt. Governor <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Governor <span>02/04/2024</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Copy the above block to add more cards -->
-                    <div class="col-md-6 mb-4">
-                      <div class="bill-card">
-                        <div class="bhead">
-                          <h5>Bill No - 35-0003</h5>
-                          <span class="bill-badge">BILL</span>
-                        </div>
-                        <p>
-                          An Act appropriating funds for the adoption of various
-                          portions of the Virgin Islands Agricultural Plan,
-                          submitted by the Agricultural Plan Task Force on
-                          December 29, 2021, as the official Agricultural Plan
-                          for the Territory
-                        </p>
-                        <div class="introced">
-                          Introduced on: <span>02-27-2023</span>
-                        </div>
-                        <div class="sponce_sec">
-                          Primary Sponsor: <span>Nefranci,</span> Sponsor:
-                          <span>Nefranci,</span> <a href="#">(7)</a>,
-                          Co-sponsor: <a href="#">(0)</a><br> Act No.:
-                          <a href="#">8700</a>
-                          Amendment No.:<a href="#">4567</a>
-                          Resolution No.:<a href="#">1234</a><br>
-                          Governors No.:<a href="#">3986</a>
-                        </div>
-                        <div class="status_sec">
-                          <strong>Status:</strong>
-                          <div class="bill-status active">
-                            Assigned <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Introduced <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Senator <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Committee <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Floor <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Approved <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Lt. Governor <span>02/04/2024</span>
-                          </div>
-                          <div class="bill-status">
-                            Governor <span>02/04/2024</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  
+                  {% endfor %}
+                </div>
+                
+                
                 </div>
                 <div
                   class="tab-pane fade"
