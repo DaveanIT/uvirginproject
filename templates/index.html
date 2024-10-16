@@ -69,12 +69,15 @@
             <div class="input_sec">
               <div class="cinput">
                 <div class="gropuSec" id="gropuSec">
+                  
                   <input
-                    class="mainInput"
-                    type="text"
-                    class="form-control"
-                    placeholder="Examples: 35"
-                  />
+                  class="mainInput"
+                  type="text"
+                  class="form-control"
+                  placeholder="Examples: 35"
+                  value="{{ bills.0.LegiNo }}"
+                />
+                
                   <div id="contentDiv" class="filter-container">
                     <div class="filter_innersec">
                       <!-- Subject Input -->
@@ -483,8 +486,8 @@
                         
                         <div class="sponce_sec">
                           Primary Sponsor: <span>{{ bill.PrimarySpon }},</span> Sponsor:
-                          <span>{{bill.Sponsor}},</span> <a href="#">(7)</a>,
-                          Co-sponsor: <span>{{bill.CoSponsor}},</span><a href="#">(0)</a><br> Act No.:
+                          <span>{{bill.Sponsor}},</span> <a href="#">{{bill.SpNos}}</a>,
+                          Co-sponsor: <span>{{bill.CoSponsor}},</span><a href="#">{{bill.CoSpNos}}</a><br> Act No.:
                           <a href="#">{{bill.ActNo}}</a>
                           Amendment No.:<a href="#">{{ bill.AmndNo }}</a>
                           Resolution No.:<a href="#">{{ bill.ResoNo }}</a><br>
@@ -535,152 +538,24 @@
                     <div class="table-scroll">
                       <table class="bill-table table table-hover">
                         <tbody>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status approved">
-                              Approved
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status approved">
-                              Date Received
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status assigned">
-                              Date Assigned
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status overriden">
-                              Date Overridden
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status overriden">
-                              Date Overridden
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status overriden">
-                              Date Overridden
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status overriden">
-                              Date Overridden
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status overriden">
-                              Date Overridden
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2">02/10/2024</td>
-                            <td class="col-md-2 bill-status overriden">
-                              Date Overridden
-                            </td>
-                            <td class="col-md-2">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status overriden">
-                              Date Overridden
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
-                          <tr>
-                            <td class="col-md-1 ps-3">35</td>
-                            <td class="col-md-2 bill-no ps-3">35-0003</td>
-                            <td class="col-md-3">
-                              An Act apprpirating $2,900,00 to the Department of
-                              Public Works for the Construction..
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                            <td class="col-md-2 ps-1 bill-status overriden">
-                              Date Overridden
-                            </td>
-                            <td class="col-md-2 ps-1">02/10/2024</td>
-                          </tr>
+                          {% for bill in bills %}
+                            <tr>
+                              <td class="col-md-1 ps-3">{{bill.LegiNo}}</td>
+                              <td class="col-md-2 bill-no ps-3">{{bill.BRNumber}}</td>
+                              <td class="col-md-3">
+                                {{bill.Subjct}}
+                              </td>
+                              <td class="col-md-2 ps-1">{{bill.IntroDt}}</td>
+                              <td class="col-md-2 ps-1 bill-status approved">
+                                {{bill.LastAct}}
+                              </td>
+                              <td class="col-md-2 ps-1">{{bill.LastActDt}}</td>
+                            </tr>
+                          {% endfor %}
                         </tbody>
                       </table>
                     </div>
+                    
                   </div>
                 </div>
               </div>
