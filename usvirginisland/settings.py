@@ -81,8 +81,8 @@ DATABASES = {
         'ENGINE': 'mssql',
         'NAME': 'BILLTRACK',
         'USER': 'sa',
-        'PASSWORD': '@123Mittu',
-        'HOST': 'ALEXLAP',
+        'PASSWORD': 'S@pdb#39',
+        'HOST': '192.168.0.5',
         'PORT': '',
 
         'OPTIONS': {
