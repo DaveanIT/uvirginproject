@@ -2,6 +2,7 @@ from django.shortcuts import render
 from usvirginisland import settings
 import pyodbc
 from django.http import JsonResponse
+from django.db import connection
 
 # Create your views here.
 def index(request):
@@ -40,4 +41,22 @@ def index(request):
     # Render the template with the data from both stored procedures
     return render(request, "index.html", data)
 
+def sponsorpopup(request):
+    # Fetch SpNos from the request (passed from HTML)
+    SpNos = request.GET.get('SpNos')
+    print('Number',SpNos)
     
+    param2 = 'S'  # Static value 'S'
+    
+    if SpNos:  # Ensure SpNos is provided
+        with connection.cursor() as cursor:
+            # Map SpNos to the DocEntry field in your database
+            cursor.execute("EXEC usp_BTS_SponList %s, %s", [SpNos, param2])
+            result = cursor.fetchall()
+            print(result)
+        # Return the result in JSON format
+        return JsonResponse({'result': result})
+    else:
+        return JsonResponse({'error': 'SpNos parameter is missing.'}, status=400)
+
+

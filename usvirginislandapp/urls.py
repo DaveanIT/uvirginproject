@@ -20,4 +20,5 @@ from .views import *
 
 urlpatterns = [
     path("",index,name="index"),
+      path('get_data/', sponsorpopup, name='sponsorpopup'),
 ]

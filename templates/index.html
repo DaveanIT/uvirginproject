@@ -486,7 +486,7 @@
                         
                         <div class="sponce_sec">
                           Primary Sponsor: <span>{{ bill.PrimarySpon }},</span> Sponsor:
-                          <span>{{bill.Sponsor}},</span> <a href="#">{{bill.SpNos}}</a>,
+                          <span>{{bill.Sponsor}},</span> <a href="#" data-docentry ={{bill.DocEntry}} class="spnos-link" data-spnos="{{ bill.SpNos }}">{{ bill.SpNos }}</a>,
                           Co-sponsor: <span>{{bill.CoSponsor}},</span><a href="#">{{bill.CoSpNos}}</a><br> Act No.:
                           <a href="#">{{bill.ActNo}}</a>
                           Amendment No.:<a href="#">{{ bill.AmndNo }}</a>
@@ -1167,6 +1167,25 @@
         </div>
       </div>
     </div>
+  
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="popupModalLabel">Sponsors</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="result">Loading...</div> <!-- Dynamic result will be loaded here -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -1176,6 +1195,55 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script>
+      $(document).ready(function() {
+        // Handle click event on links with class 'spnos-link'
+        $('.spnos-link').click(function(event) {
+          event.preventDefault(); // Prevent the default behavior of the link
+      
+          // Get the SpNos from the data attribute
+          var spnos = $(this).data('docentry');
+      
+          // Make an AJAX request to the Django view, passing SpNos as a query parameter
+          $.ajax({
+            url: '/get_data/', // Your Django view URL
+            type: 'GET',
+            data: { 'SpNos': spnos },
+            success: function(data) {
+              // Start building the HTML for the table
+              var tableHTML = '<table class="table table-bordered"><tbody>';
+      
+              // Check if data.result is an array or a single item
+              if (Array.isArray(data.result) && data.result.length > 1) {
+                // Loop through each item and create a row for each
+                data.result.forEach(function(item) {
+                  tableHTML += '<tr><td>' + item + '</td></tr>';
+                });
+              } else if (data.result) {
+                // If it's a single item, create a single row
+                tableHTML += '<tr><td>' + data.result + '</td></tr>';
+              } else if (data.error) {
+                // Show an error message if there's an error
+                tableHTML += '<tr><td class="alert alert-danger">' + data.error + '</td></tr>';
+              }
+      
+              // Close the table tags
+              tableHTML += '</tbody></table>';
+      
+              // Set the generated HTML to the result div
+              $('#result').html(tableHTML);
+      
+              // Show the Bootstrap modal
+              $('#popupModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+              $('#result').html('<div class="alert alert-danger">Error: ' + error + '</div>');
+            }
+          });
+        });
+      });
+      
+
+
       $(document).ready(function () {
         $(".datepicker").datepicker({
           format: "mm/dd/yyyy", // Date format, you can change to your preferred format
