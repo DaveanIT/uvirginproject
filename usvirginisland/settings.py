@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#$jr_g$7mwgam9@)6bhebrambjve2*fg=kbcxhhdbye%nrp!co
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*','192.168.36.100']
 
 
 # Application definition
@@ -81,8 +81,8 @@ DATABASES = {
         'ENGINE': 'mssql',
         'NAME': 'BILLTRACK',
         'USER': 'sa',
-        'PASSWORD': 'S@pdb#39',
-        'HOST': '192.168.0.5',
+        'PASSWORD': '@123Mittu',
+        'HOST': 'ALEXLAP',
         'PORT': '',
 
         'OPTIONS': {
