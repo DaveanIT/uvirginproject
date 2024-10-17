@@ -485,9 +485,9 @@
                         </div>
                         
                         <div class="sponce_sec">
-                          Primary Sponsor: <span>{{ bill.PrimarySpon }},</span> Sponsor:
-                          <span>{{bill.Sponsor}},</span> <a href="#" data-docentry ={{bill.DocEntry}} class="spnos-link" data-spnos="{{ bill.SpNos }}">{{ bill.SpNos }}</a>,
-                          Co-sponsor: <span>{{bill.CoSponsor}},</span><a href="#">{{bill.CoSpNos}}</a><br> Act No.:
+                          Primary Sponsor: <span>{{ bill.PrimarySpon }}, </span> Sponsor:
+                          <span>{{bill.Sponsor}}, </span> <a href="#" data-docentry ={{bill.DocEntry}} class="spnos-link" data-spnos="{{ bill.SpNos }}">{{ bill.SpNos }}</a> ,
+                          Co-sponsor: <span>{{bill.CoSponsor}}, </span><a href="#" class="cospnos-link" data-docentry ={{bill.DocEntry}} >{{bill.CoSpNos}}</a><br> Act No.:
                           <a href="#">{{bill.ActNo}}</a>
                           Amendment No.:<a href="#">{{ bill.AmndNo }}</a>
                           Resolution No.:<a href="#">{{ bill.ResoNo }}</a><br>
@@ -655,36 +655,38 @@
 
             <!-- Member-Search -Cards -->
             <div class="member-section">
+              {% for mem in member|slice:":1" %}
               <div class="leftsSec">
                 <!-- Member-Search-Member-Details -->
-                <div class="member-details">                                
+                <div class="member-details">                
                   <img src="{% static 'img/image 2.jpg' %}" alt="" />
-                  <div class="courtsy-cnt">Representative <b>Alma S Adams</b></div>
+                  <div class="courtsy-cnt">Representative <b>{{mem.CardName}}</b></div>
                   <ul>
                     <li>
                       <span class="label">Party</span>
-                      <span class="label-cnt">Democratic</span>
+                      <span class="label-cnt">{{mem.Party}}</span>
                     </li>
                     <li>
                       <span class="label">Island</span>
                       <span class="label-cnt">
-                        2436 Rayburn House Office Building (202) 225-1510
+                        {{mem.Island}}
                         <a href="#">Contact</a></span
                       >
                     </li>
                     <li>
                       <span class="label">Email</span>
-                      <span class="label-cnt">Alma.s@gmail.com</span>
+                      <span class="label-cnt">{{mem.EMail}}</span>
                     </li>
                     <li>
                       <span class="label">Telephone</span>
-                      <span class="label-cnt"> https://adams.house.gov</span>
+                      <span class="label-cnt"> {{mem.Phone}}</span>
                     </li>
                     <li>
                       <span class="label">Website</span>
-                      <span class="label-cnt"> https://adams.house.gov</span>
+                      <span class="label-cnt">{{mem.Website}}</span>
                     </li>
                   </ul>
+                  {% endfor %}
                 </div>
               </div>
               <div class="rightSec">
@@ -697,110 +699,40 @@
                     aria-labelledby="membergrid-tab"
                     tabindex="5"
                   >
+                  {% for bill in member %}
                     <div class="bill-card mb-4">
                       <div class="bhead">
-                        <h5>Bill No - 35-0003</h5>
-                        <span class="bill-badge">BILL</span>
+                        <h5>Bill No - {{bill.BRNumber}}</h5>
+                        <span class="bill-badge">{{bill.RequestType}}</span>
                       </div>
                       <p>
-                        An Act appropriating funds for the adoption of various
-                        portions of the Virgin Islands Agricultural Plan,
-                        submitted by the Agricultural Plan Task Force on
-                        December 29, 2021, as the official Agricultural Plan for
-                        the Territory
+                        {{bill.Subjct}}
                       </p>
                       <div class="introced">
-                        Introduced on: <span>02-27-2023</span>
+                        Introduced on: <span>{{bill.IntroDt}}</span>
                       </div>
                       <div class="sponce_sec">
-                        Primary Sponsor: <span>Nefranci,</span> Sponsor:
-                        <span>Nefranci,</span> <a href="#">(7)</a>,
-                        Co-sponsor: <a href="#">(0)</a><br> Act No.:
-                        <a href="#">8700</a>
-                        Amendment No.:<a href="#">4567</a>
-                        Resolution No.:<a href="#">1234</a>
-                        Governors No.:<a href="#">3986</a>
+                        Primary Sponsor: <span>{{ bill.PrimarySpon }}, </span> Sponsor:
+                        <span>{{bill.Sponsor}}, </span> <a href="#" data-docentry ={{bill.DocEntry}} class="spnos-link" data-spnos="{{ bill.SpNos }}">{{ bill.SpNos }}</a> ,
+                        Co-sponsor: <span>{{bill.CoSponsor}}, </span><a href="#" class="cospnos-link" data-docentry ={{bill.DocEntry}} >{{bill.CoSpNos}}</a><br> Act No.:
+                        <a href="#">{{bill.ActNo}}</a>
+                        Amendment No.:<a href="#">{{ bill.AmndNo }}</a>
+                        Resolution No.:<a href="#">{{ bill.ResoNo }}</a><br>
+                        Governors No.:<a href="#">{{ bill.GovNo }}</a>
                       </div>
                       <div class="status_sec">
                         <strong>Status:</strong>
-                        <div class="bill-status active">
-                          Assigned <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Introduced <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Senator <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Committee <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Floor <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Approved <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Lt. Governor <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Governor <span>02/04/2024</span>
-                        </div>
+                        {% for other_bill in memberstatus %}
+                            {% if other_bill.DocEntry == bill.DocEntry %}
+                              <div class="bill-status {% if other_bill.LastAct == 'Y' %}active{% endif %}">
+                                {{ other_bill.Stat }}<span>{{ other_bill.StatDt|default:"" }}</span>
+                              </div>
+                            {% endif %}
+                          {% endfor %}
                       </div>
+                      
                     </div>
-                    <div class="bill-card mb-4">
-                      <div class="bhead">
-                        <h5>Bill No - 35-0003</h5>
-                        <span class="bill-badge">BILL</span>
-                      </div>
-                      <p>
-                        An Act appropriating funds for the adoption of various
-                        portions of the Virgin Islands Agricultural Plan,
-                        submitted by the Agricultural Plan Task Force on
-                        December 29, 2021, as the official Agricultural Plan for
-                        the Territory
-                      </p>
-                      <div class="introced">
-                        Introduced on: <span>02-27-2023</span>
-                      </div>
-                      <div class="sponce_sec">
-                        Primary Sponsor: <span>Nefranci,</span> Sponsor:
-                        <span>Nefranci,</span> <a href="#">(7)</a>,
-                        Co-sponsor: <a href="#">(0)</a><br> Act No.:
-                        <a href="#">8700</a>
-                        Amendment No.:<a href="#">4567</a>
-                        Resolution No.:<a href="#">1234</a>
-                        Governors No.:<a href="#">3986</a>
-                      </div>
-                      <div class="status_sec">
-                        <strong>Status:</strong>
-                        <div class="bill-status active">
-                          Assigned <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Introduced <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Senator <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Committee <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Floor <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Approved <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Lt. Governor <span>02/04/2024</span>
-                        </div>
-                        <div class="bill-status">
-                          Governor <span>02/04/2024</span>
-                        </div>
-                      </div>
-                    </div>
+                    {% endfor %} 
                   </div>
                   <div
                     class="tab-pane fade"
@@ -827,149 +759,20 @@
                       <div class="table-scroll">
                         <table class="bill-table table table-hover">
                           <tbody>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status approved">
-                                Approved
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status approved">
-                                Date Received
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status assigned">
-                                Date Assigned
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status overriden">
-                                Date Overridden
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status overriden">
-                                Date Overridden
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status overriden">
-                                Date Overridden
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status overriden">
-                                Date Overridden
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status overriden">
-                                Date Overridden
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2">02/10/2024</td>
-                              <td class="col-md-2 bill-status overriden">
-                                Date Overridden
-                              </td>
-                              <td class="col-md-2">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status overriden">
-                                Date Overridden
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-1 ps-3">35</td>
-                              <td class="col-md-2 bill-no ps-3">35-0003</td>
-                              <td class="col-md-3">
-                                An Act apprpirating $2,900,00 to the Department
-                                of Public Works for the Construction..
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                              <td class="col-md-2 ps-1 bill-status overriden">
-                                Date Overridden
-                              </td>
-                              <td class="col-md-2 ps-1">02/10/2024</td>
-                            </tr>
+                            {% for bill in member %}
+                              <tr>
+                                <td class="col-md-1 ps-3">{{bill.LegiNo}}</td>
+                                <td class="col-md-2 bill-no ps-3">{{bill.BRNumber}}</td>
+                                <td class="col-md-3">
+                                  {{bill.Subjct}}
+                                </td>
+                                <td class="col-md-2 ps-1">{{bill.IntroDt}}</td>
+                                <td class="col-md-2 ps-1 bill-status approved">
+                                  {{bill.LastAct}}
+                                </td>
+                                <td class="col-md-2 ps-1">{{bill.LastActDt}}</td>
+                              </tr>
+                            {% endfor %}
                           </tbody>
                         </table>
                       </div>
@@ -1169,7 +972,7 @@
     </div>
   
     <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered" style="width:300px;">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="popupModalLabel">Sponsors</h5>
@@ -1179,7 +982,27 @@
             <div id="result">Loading...</div> <!-- Dynamic result will be loaded here -->
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary closebtn" data-bs-dismiss="modal" style="border-radius: 5.491px; background: #255ea9; color: #fff;
+              font-family: var(--base-font-family);  font-size: 9.609px; font-style: normal; font-weight: 500; line-height: normal; letter-spacing: -0.192px;
+              border: none; display: flex;  align-items: center;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="width:300px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="popupModalLabel">Sponsors</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="result">Loading...</div> <!-- Dynamic result will be loaded here -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary closebtn" data-bs-dismiss="modal" style="border-radius: 5.491px; background: #255ea9; color: #fff;
+              font-family: var(--base-font-family);  font-size: 9.609px; font-style: normal; font-weight: 500; line-height: normal; letter-spacing: -0.192px;
+              border: none; display: flex;  align-items: center;">Close</button>
           </div>
         </div>
       </div>
@@ -1216,7 +1039,55 @@
               if (Array.isArray(data.result) && data.result.length > 1) {
                 // Loop through each item and create a row for each
                 data.result.forEach(function(item) {
-                  tableHTML += '<tr><td>' + item + '</td></tr>';
+                  tableHTML += '<tr><td style="padding: .2rem .5rem;">' + item + '</td></tr>';
+                });
+              } else if (data.result) {
+                // If it's a single item, create a single row
+                tableHTML += '<tr><td>' + data.result + '</td></tr>';
+              } else if (data.error) {
+                // Show an error message if there's an error
+                tableHTML += '<tr><td class="alert alert-danger">' + data.error + '</td></tr>';
+              }
+      
+              // Close the table tags
+              tableHTML += '</tbody></table>';
+      
+              // Set the generated HTML to the result div
+              $('#result').html(tableHTML);
+      
+              // Show the Bootstrap modal
+              $('#popupModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+              $('#result').html('<div class="alert alert-danger">Error: ' + error + '</div>');
+            }
+          });
+        });
+      });
+
+      //Co-Sponsor Popup section
+      $(document).ready(function() {
+        // Handle click event on links with class 'spnos-link'
+        $('.cospnos-link').click(function(event) {
+          event.preventDefault(); // Prevent the default behavior of the link
+      
+          // Get the SpNos from the data attribute
+          var cospnos = $(this).data('docentry');
+      
+          // Make an AJAX request to the Django view, passing SpNos as a query parameter
+          $.ajax({
+            url: '/getcosp_data/', // Your Django view URL
+            type: 'GET',
+            data: { 'CoSpNos': cospnos },
+            success: function(data) {
+              // Start building the HTML for the table
+              var tableHTML = '<table class="table table-bordered"><tbody>';
+      
+              // Check if data.result is an array or a single item
+              if (Array.isArray(data.result) && data.result.length > 1) {
+                // Loop through each item and create a row for each
+                data.result.forEach(function(item) {
+                  tableHTML += '<tr><td style="padding: .2rem .5rem;">' + item + '</td></tr>';
                 });
               } else if (data.result) {
                 // If it's a single item, create a single row
