@@ -404,6 +404,8 @@
   border: 1px solid #b9cce5;
   background: #f5f9ff;
   padding: 24px;
+  height: 100%;
+  width: 100%;
 }
 .bill-card .bhead {
   display: flex;

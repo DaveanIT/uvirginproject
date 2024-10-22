@@ -79,16 +79,18 @@
                 />
                 
                   <div id="contentDiv" class="filter-container">
+                    <form method='POST' action="{% url "index" %}">
+                    {% csrf_token %}
                     <div class="filter_innersec">
                       <!-- Subject Input -->
                       <div class="sub_input">
                         <input
                           type="text"
+                          name="subject"
                           class="form-control"
                           placeholder="Subject"
                         />
                       </div>
-
                       <!-- Sponsor Section -->
                       <div class="spon_sec">
                         <h2>Sponsor</h2>
@@ -96,12 +98,18 @@
                           <div class="left_sec">
                             <div class="check_cnt">
                               <div class="form-check form-check-inline">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="primarySponsor"
-                                  value=""
-                                />
+                                   <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="primspon" value="n" />
+                              <input type="hidden" name="legno" value="{{ bills.0.LegiNo }}" />
+                              <!-- Checkbox for checked state -->
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="primarySponsor"
+                                name="primspon"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
+                              />
                                 <label
                                   class="form-check-label"
                                   for="primarySponsor"
@@ -109,21 +117,33 @@
                                 >
                               </div>
                               <div class="form-check form-check-inline">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="sponsor"
-                                />
+                                <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="spon" value="n" />
+                              <!-- Checkbox for checked state -->
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="sponsor"
+                                name="spon"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
+                              />
                                 <label class="form-check-label" for="sponsor"
                                   >Sponsor</label
                                 >
                               </div>
                               <div class="form-check form-check-inline">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="coSponsor"
-                                />
+                                <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="cospon" value="n" />
+                              <!-- Checkbox for checked state -->
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="coSponsor"
+                                name="cospon"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
+                              />
                                 <label class="form-check-label" for="coSponsor"
                                   >Co-Sponsor</label
                                 >
@@ -153,84 +173,129 @@
                           <h5>Date</h5>
                           <div class="check_sec">
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="approved" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="approved"
+                                name="approved"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
                               <label class="form-check-label" for="approved"
                                 >Approved</label
                               >
                             </div>
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="vetoed" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="vetoed"
+                                name="vetoed"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
                               <label class="form-check-label" for="vetoed"
                                 >Vetoed</label
                               >
                             </div>
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="overrdn" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="overridden"
+                                name="overrdn"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
                               <label class="form-check-label" for="overridden"
                                 >Overridden</label
                               >
                             </div>
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="toassgnd" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="assigned"
+                                name="toassgnd"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
                               <label class="form-check-label" for="assigned"
                                 >Assigned</label
                               >
                             </div>
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="tointro" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="introduced"
+                                name="tointro"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
                               <label class="form-check-label" for="introduced"
                                 >Introduced</label
                               >
                             </div>
                             <div class="form-check form-check-inline">
-                              <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="toSenator"
-                              />
+                             <!-- Hidden input for unchecked state -->
+                             <input type="hidden" name="tosnt" value="n" />
+                             <!-- Checkbox for checked state -->
+                             <input
+                               type="checkbox"
+                               class="form-check-input"
+                               id="toSenator"
+                               name="tosnt"
+                               value="y"
+                               onclick="toggleCheckbox(this)"
+                             />
                               <label class="form-check-label" for="toSenator"
                                 >To Senator</label
                               >
                             </div>
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="togov" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="toGovernor"
+                                name="togov"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
-                              <label class="form-check-label" for="toGovernor"
-                                >To Governor</label
-                              >
+                              <label class="form-check-label" for="toGovernor">To Governor</label>
                             </div>
+                            
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="toltgov" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="toLtGovernor"
+                                name="toltgov"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
-                              <label class="form-check-label" for="toLtGovernor"
-                                >To Lt. Governor</label
-                              >
+                              <label class="form-check-label" for="toLtGovernor">To Lt. Governor</label>
                             </div>
                           </div>
                           <div class="date_cnt">
@@ -238,6 +303,7 @@
                               <input
                                 type="text"
                                 id="dateFrom"
+                                name="fromdate"
                                 class="form-control datepicker"
                                 placeholder="Date from"
                               />
@@ -246,6 +312,7 @@
                               <input
                                 type="text"
                                 id="dateTo"
+                                name="todate"
                                 class="form-control datepicker"
                                 placeholder="Date to"
                               />
@@ -258,40 +325,64 @@
                           <h5>Legislature Numbers</h5>
                           <div class="check_sec">
                             <div class="form-check form-check-inline">
-                              <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="billNumber"
-                              />
+                               <!-- Hidden input for unchecked state -->
+                               <input type="hidden" name="billnum" value="n" />
+                               <!-- Checkbox for checked state -->
+                               <input
+                                 type="checkbox"
+                                 class="form-check-input"
+                                 id="billNumber"
+                                 name="billnum"
+                                 value="y"
+                                 onclick="toggleCheckbox(this)"
+                               />
                               <label class="form-check-label" for="billNumber"
                                 >Bill Number</label
                               >
                             </div>
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="actno" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="actNumber"
+                                name="actno"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
                               <label class="form-check-label" for="actNumber"
                                 >Act Number</label
                               >
                             </div>
                             <div class="form-check form-check-inline">
-                              <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="brNumber"
-                              />
+                               <!-- Hidden input for unchecked state -->
+                               <input type="hidden" name="brno" value="n" />
+                               <!-- Checkbox for checked state -->
+                               <input
+                                 type="checkbox"
+                                 class="form-check-input"
+                                 id="brNumber"
+                                 name="brno"
+                                 value="y"
+                                 onclick="toggleCheckbox(this)"
+                               />
                               <label class="form-check-label" for="brNumber"
                                 >BR Number</label
                               >
                             </div>
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="amnno" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="amendmentNumber"
+                                name="amnno"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
                               <label
                                 class="form-check-label"
@@ -300,10 +391,16 @@
                               >
                             </div>
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="resono" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="resolutionNumber"
+                                name="resono"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
                               <label
                                 class="form-check-label"
@@ -312,10 +409,16 @@
                               >
                             </div>
                             <div class="form-check form-check-inline">
+                              <!-- Hidden input for unchecked state -->
+                              <input type="hidden" name="govrrno" value="n" />
+                              <!-- Checkbox for checked state -->
                               <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="governorsNumber"
+                                name="govrrno"
+                                value="y"
+                                onclick="toggleCheckbox(this)"
                               />
                               <label
                                 class="form-check-label"
@@ -345,6 +448,7 @@
                         </button>
                       </div>
                     </div>
+                  </form>
                     <div class="moreopt" id="hideButton">
                       Hide Options
                       <i class="fa fa-chevron-up" aria-hidden="true"></i>
@@ -498,7 +602,7 @@
                           <strong>Status:</strong>
                 
                           <!-- Loop through other_bills and match on DocEntry -->
-                          {% for other_bill in status %}
+                          {% for other_bill in status %}               
                             {% if other_bill.DocEntry == bill.DocEntry %}
                               <div class="bill-status {% if other_bill.LastAct == 'Y' %}active{% endif %}">
                                 {{ other_bill.Stat }}<span>{{ other_bill.StatDt|default:"" }}</span>
@@ -669,9 +773,8 @@
                     <li>
                       <span class="label">Island</span>
                       <span class="label-cnt">
-                        {{mem.Island}}
-                        <a href="#">Contact</a></span
-                      >
+                        {{mem.Island}}</span>
+                
                     </li>
                     <li>
                       <span class="label">Email</span>
@@ -702,7 +805,7 @@
                   {% for bill in member %}
                     <div class="bill-card mb-4">
                       <div class="bhead">
-                        <h5>Bill No - {{bill.BRNumber}}</h5>
+                        <h5>Bill No - {{bill.BRNumber|default:''}}</h5>
                         <span class="bill-badge">{{bill.RequestType}}</span>
                       </div>
                       <p>
@@ -1146,6 +1249,14 @@
           }
         });
       });
+      
+      function toggleCheckbox(checkbox) {
+        if (checkbox.checked) {
+          checkbox.value = "y";  // Set value to "y" when checked
+        } else {
+          checkbox.value = "n";  // Set value to "n" when unchecked
+        }
+      }
     </script>
   </body>
 </html>
