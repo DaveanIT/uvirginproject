@@ -115,12 +115,29 @@ def index(request):
 
         result2 = cursor.fetchall()
         columns2 = [column[0] for column in cursor.description]
-        result_data2 = [dict(zip(columns2, row)) for row in result2]# Convert the result into dictionaries
+        result_data2 = [dict(zip(columns2, row)) for row in result2]
+
+        # Execute the third stored procedure (usp_BTS_PageLoad 2)
+        cursor.execute("EXEC usp_BTS_PageLoad_Member 1")
+        result3 = cursor.fetchall()
+        columns3 = [column[0] for column in cursor.description]  # Get column names for result2
+        result_data3 = [dict(zip(columns3, row)) for row in result3]  # Convert the result into dictionaries
+
+        # Execute the third stored procedure (usp_BTS_PageLoad 2)
+        cursor.execute("EXEC usp_BTS_PageLoad_Member 2")
+        result4 = cursor.fetchall()
+        columns4 = [column[0] for column in cursor.description]  # Get column names for result2
+        result_data4 = [dict(zip(columns4, row)) for row in result4]  # Convert the result into dictionaries
+
+        # Close the database connection
+        conn.close()
+
+        # Prepare the data for the template
         data = {
-            "bills": result_data1,  # Data from first stored procedure
+            "bills": result_data1 ,# Data from first stored procedure
             "status": result_data2,  # Data from second stored procedure
-            "member": None,
-            "memberstatus": None
+            "member": result_data3,
+            "memberstatus": result_data4
         }
         print("result_data2")
         print(result_data2)
