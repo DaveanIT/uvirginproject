@@ -19,7 +19,9 @@ from django.urls import path,include
 from .views import *
 
 urlpatterns = [
-    path("",index,name="index"),
-      path('get_data/', sponsorpopup, name='sponsorpopup'),
-      path('getcosp_data/',cosponsorpopup,name='cosponsorpopup')
+    path("index/",index,name="index"),
+    path("member/",member,name="member"),
+    path('get_data/', sponsorpopup, name='sponsorpopup'),
+    path('getcosp_data/',cosponsorpopup,name='cosponsorpopup'),
+    path('bill_detail/<int:doc_entry>/',billdetail,name='bill_detail')    
 ]
