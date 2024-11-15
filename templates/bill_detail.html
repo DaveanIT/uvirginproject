@@ -35,7 +35,7 @@
         <p class="go-back" type="button"onclick="window.location.href='{% url "index" %}';">    
           Back
       </p>
-
+            <hr style="margin: 12px 0 12px 0;">
             <div class="tablebackbtn">
                 <!-- <div class="legislature">
                     <span>Legislature &nbsp;</span>
@@ -115,22 +115,22 @@
                                 <label for="committee" class="fontheadsize">Committee</label>
                                 <div id="committee">
                                   <label for="lastcommittee" class="nformn-control">Last Committee</label>
-                                    <input type="text" style="width: 22%;" id="lastcommittee" class="nform-control" value="{{bill.U_Committee|default:''}}">
+                                    <input type="text" style="width: 22%; font-size: x-small; font-family: Inter;" id="lastcommittee" class="nform-control" value="{{bill.U_Committee|default:''}}">
                                   <label for="lastcommittee" class="nformn-control" style="padding-left: 18px;">Committee Action</label>
-                                    <input type="text" style="width: 22%;" id="floorAction" class="nform-control" value="{{bill.ComAct|default:''}}">
+                                    <input type="text" style="width: 22%; font-size: x-small; font-family: Inter;" id="floorAction" class="nform-control" value="{{bill.ComAct|default:''}}">
                                 </div>
                                 
                                 <label for="floorAction" class="fontheadsize">Floor Action</label>
-                                <input type="text" id="floorAction" class="nform-control" value="{{bill.FlrAction|default:''}}">
+                                <input type="text" id="floorAction" style="font-size: x-small; font-family: Inter;" class="nform-control" value="{{bill.FlrAction|default:''}}">
                                 
                                 <label for="rulesAction" class="fontheadsize">Rules Action</label>
-                                <input type="text" id="rulesAction" class="nform-control" value="{{bill.RuleAct|default:''}}">
+                                <input type="text" id="rulesAction" style="font-size: x-small; font-family: Inter;" class="nform-control" value="{{bill.RuleAct|default:''}}">
                                 
                                 <label for="vetoedText" class="fontheadsize">Vetoed Text</label>
-                                <input type="text" id="vetoedText" class="nform-control" value="{{bill.Veoted|default:''}}">
+                                <input type="text" id="vetoedText"  style="font-size: x-small; font-family: Inter;"  class="nform-control" value="{{bill.Veoted|default:''}}">
                                 
                                 <label for="overriddenText" class="fontheadsize">Overridden Text</label>
-                                <input type="text" id="overriddenText" class="nform-control" value="{{bill.Overridn|default:''}}">
+                                <input type="text" id="overriddenText"  style="font-size: x-small; font-family: Inter;"  class="nform-control" value="{{bill.Overridn|default:''}}">
                             </div>
                             {% endfor %}
                         </div>
@@ -157,7 +157,7 @@
                       
                       <div id="action" class="tab-content" style="display: none;">
                         <div class="action">
-                            <table class="table table-hover">
+                            <table class="table table-striped table-hover">
                                 <tr style="position: sticky; top: 0; background-color: white; z-index: 1;">
                                   <th class="fontheadsize">Status Received</th>
                                   <th class="fontheadsize">Description</th>

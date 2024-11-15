@@ -19,9 +19,11 @@ from django.urls import path,include
 from .views import *
 
 urlpatterns = [
-    path("index/",index,name="index"),
+    path("",index,name="index"),
+    path("pdf/",pdf,name="pdf"),
     path("member/",member,name="member"),
     path('get_data/', sponsorpopup, name='sponsorpopup'),
     path('getcosp_data/',cosponsorpopup,name='cosponsorpopup'),
-    path('bill_detail/<int:doc_entry>/',billdetail,name='bill_detail')    
+    path('bill_detail/<int:doc_entry>/',billdetail,name='bill_detail'),
+    path('view-pdf/', serve_pdf, name='view_pdf'),    
 ]

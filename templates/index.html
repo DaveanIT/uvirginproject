@@ -70,8 +70,7 @@
                     class="mainInput"
                     type="text"
                     class="form-control"
-                    placeholder="25"
-                    value={{ bills.0.LegiNo }}
+                    value="{{ bills.0.LegiNo }}"
                   />
                   <div id="contentDiv" class="filter-container">
                     <form method='POST' action="{% url 'index' %}" id="searchForm">
@@ -498,6 +497,7 @@
                     type="text"
                     value="1"
                     class="form-control d-inline-block"
+                    style="width: 55px;"
                   />
 
                   <span>of 1325 pages</span>
@@ -604,7 +604,8 @@
                               <span class="disabled-text">0</span> <!-- Or you can simply show a text instead -->
                             {% endif %}   
                          <br> Act No.:
-                         <span>{% if bill.ActNo %}<a href="">{{ bill.ActNo }}</a>{% else %}&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}</span>
+                         <span>{% if bill.ActNo %}<a href="{% url 'pdf' %}" target="_blank" rel="noopener noreferrer">{{ bill.ActNo }}</a>
+                          {% else %}&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}</span>
                           Amendment No.:<span>{% if bill.AmndNo %}<a href="">{{ bill.AmndNo }}</a>{% else %}&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}</span>
                           Resolution No.:<span>{% if bill.ResoNo %}<a href="">{{ bill.ResoNo }}</a>{% else %}&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}</span><br>
                           Governors No.:<span>{% if bill.GovNo %}<a href="">{{ bill.GovNo }}</a>{% else %}&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}</span>

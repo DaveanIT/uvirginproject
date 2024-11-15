@@ -1,7 +1,8 @@
+import os
 from django.shortcuts import render
 from usvirginisland import settings
 import pyodbc
-from django.http import JsonResponse
+from django.http import FileResponse, JsonResponse
 from django.db import connection
 
 # Create your views here.
@@ -122,8 +123,9 @@ def index(request):
             "bills": result_data1 ,# Data from first stored procedure
             "status": result_data2,  # Data from second stored procedure
         }
-        print("result_data2")
-        print(result_data2)
+        print("helloresult_data2")
+        print('LegiNo',result_data1)
+
 
         
 
@@ -143,7 +145,7 @@ def index(request):
             # Define the parameters for the stored procedure
             params = (1, 'Y', None, None, None, None, None, None, None, 
                       None, None, None, None, None, None, None, None, None,None, None)
-
+            print(params)
             # Execute the stored procedure with parameters
             cursor.execute("""
                 EXEC [dbo].[usp_BTS_PageLoad]
@@ -172,7 +174,7 @@ def index(request):
             result1 = cursor.fetchall()
             columns1 = [column[0] for column in cursor.description]
             result_data1 = [dict(zip(columns1, row)) for row in result1]# Convert the result into dictionaries
-
+            print('LegiNo',result_data1[0])
             # Execute the second stored procedure (usp_BTS_PageLoad 2)
             # cursor.execute("EXEC usp_BTS_PageLoad 2")
 
@@ -356,7 +358,7 @@ def member(request):
             "member": result_data3,
             "memberstatus": result_data4
         }
-        print("result_data2")
+        print("xfdfdxfresult_data2")
         print(result_data2)
 
         
@@ -565,3 +567,22 @@ def billdetail(request, doc_entry):
     }
     # Render the template with the populated context
     return render(request, 'bill_detail.html', context)
+
+def pdf(request):
+    pdf_path = r"C:\pdf\BDMS Report FINAL.pdf"  # Use 'r' to denote a raw string (to handle backslashes)
+    context = {
+        'pdf_path': pdf_path
+    }
+    return render(request,'pdf.html', context)
+
+
+def serve_pdf(request):
+    # Specify the path to your PDF file
+    pdf_path = request.GET.get('pdf_path')
+    # pdf_path = r"C:\pdf\BDMS Report FINAL.pdf"  # Use 'r' to denote a raw string (to handle backslashes)
+    
+    # Check if the file exists before attempting to open it
+    if os.path.exists(pdf_path):
+        return FileResponse(open(pdf_path, 'rb'), content_type='application/pdf')
+    else:
+        return FileResponse(status=404, content_type='text/plain', reason="File not found")
